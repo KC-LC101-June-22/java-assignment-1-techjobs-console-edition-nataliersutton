@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -98,8 +95,25 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        //Create new AL-HM to store the jobs we may find.
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        //Loop through each HM/job listing in the AL
+        for (HashMap<String, String> row: allJobs){
+
+            //Loop through the data in each HM/job listing and call/get the value of the key/value set
+            // and search it for our argument (value).
+            //Make sure it's not already in the new jobs AL we created before adding it.
+
+            for (HashMap.Entry<String, String> jobData : row.entrySet()) {
+                if (jobData.getValue().contains(value)) {
+                    if (!jobs.contains(row)) {
+                        jobs.add(row);
+                    }
+                }
+            }
+        }
+        return jobs;
     }
 
     /**
