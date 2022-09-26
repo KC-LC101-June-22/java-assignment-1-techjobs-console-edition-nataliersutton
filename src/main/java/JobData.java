@@ -70,13 +70,15 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        //Add case-insensitivity here too, so both search methods work.
+
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -104,9 +106,11 @@ public class JobData {
             //Loop through the data in each HM/job listing and call/get the value of the key/value set
             // and search it for our argument (value).
             //Make sure it's not already in the new jobs AL we created before adding it.
+            //Need to make case-insensitive - convert file data and search argument to lowercase
+            //so both can be same. Do same on other method too?
 
             for (HashMap.Entry<String, String> jobData : row.entrySet()) {
-                if (jobData.getValue().contains(value)) {
+                if (jobData.getValue().toLowerCase().contains(value.toLowerCase())) {
                     if (!jobs.contains(row)) {
                         jobs.add(row);
                     }
